@@ -1,17 +1,24 @@
-from string import ascii_lowercase
+from string import ascii_lowercase as letters
 
 
 class ScrapeAgencies:
     
-    def __init__(self):
+    def __init__(self, letter):
+        self.letter = letter
+
         
-        #create all urls with each letter in the alphabet
-        root_url = 'https://www.usa.gov/federal-agencies/'
-        for letter in ascii_lowercase:
-            print root_url + letter
+    #create all urls with each letter in the alphabet
+    def create_urls(self, letter):
+        root_url = 'https://www.usa.gov/federal-agencies/%s' % (self.letter)
+        return root_url
+        
             
             
             
 if __name__ == "__main__":
-    scrape = ScrapeAgencies()
+    
+    for letter in letters:
+    
+        scrape = ScrapeAgencies(letter)
+        
     
