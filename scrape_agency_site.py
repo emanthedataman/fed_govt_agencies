@@ -1,1 +1,4 @@
-print 'Hello World'
+class ScrapeAgencies:
+    
+    def __init__(self):
+        pass
