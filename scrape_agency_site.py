@@ -29,7 +29,8 @@ class ScrapeAgencies:
     def scrape_site(self, url):
         soup = self.convert_to_soup(url)
         ul = soup.findAll('ul', {'class': 'one_column_bullet'})
-        print ul
+        for i in ul:
+            print i
         
 
  
