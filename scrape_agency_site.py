@@ -1,10 +1,12 @@
 from string import ascii_lowercase as letters
+from bs4 import BeautifulSoup
+
 import requests
 
 class ScrapeAgencies:
 
     def __init__(self):
-        self.letter = letter  
+#         self.letter = letter  
         
         self.min_sleep_sec = 0.5
         self.max_sleep_sec = 2.5
@@ -12,11 +14,28 @@ class ScrapeAgencies:
     #create urls to access all index pages    
     def create_urls(self, letter):
         urls_list = []
-#         root_url = 'https://www.usa.gov/federal-agencies/%s' % (self.letter)
+# #         root_url = 'https://www.usa.gov/federal-agencies/%s' % (self.letter)
         root_url = 'https://www.usa.gov/federal-agencies/%s' % (letter)
         return root_url
+    
+    #convert site to soup
+    def convert_to_soup(self, url):
+        response = requests.get(url)
+        html = response.text
+        soup = BeautifulSoup(html, "html.parser")
+        return soup
         
-    #requests pages
+    #scrape site
+    def scrape_site(self, url):
+        soup = self.convert_to_soup(url)
+        ul = soup.findAll('ul', {'class': 'one_column_bullet'})
+        print ul
+        
+
+ 
+    
+    
+    
     #scrape agency links 
     #Hit the agency links to scrape agency details
     #write information to csv
@@ -27,7 +46,8 @@ if __name__ == "__main__":
     for letter in range(0, len(letters), 26):
         scrape = ScrapeAgencies()
         index_url = scrape.create_urls(letters[letter])
-        print index_url
+        scrape.scrape_site(index_url)
+        
 
 
 
