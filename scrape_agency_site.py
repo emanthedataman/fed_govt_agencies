@@ -28,9 +28,15 @@ class ScrapeAgencies:
     #scrape site
     def scrape_site(self, url):
         soup = self.convert_to_soup(url)
-        ul = soup.find('ul', {'class', 'one_column_bullet'})
-        a_tags = soup.findAll('a', {'class': 'url'})
-        print a_tags
+        
+        #find the unordered list, within in that find all the a tags
+        a_tags = soup.find('ul', {'class', 'one_column_bullet'}).findAll('a', {'class': 'url'})
+        for a_tag in a_tags:
+            agency_name = a_tag.text
+            agency_link = a_tag['href']
+            
+            
+        
 
             
         
