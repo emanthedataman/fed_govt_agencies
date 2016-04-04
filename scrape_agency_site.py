@@ -30,7 +30,10 @@ class ScrapeAgencies:
         soup = self.convert_to_soup(url)
         ul = soup.findAll('ul', {'class': 'one_column_bullet'})
         for i in ul:
-            print i.findAll('a')
+            a_tags = i.findAll('a')
+            for a_tag in a_tags:
+                print a_tag.text
+            
         
 
  
