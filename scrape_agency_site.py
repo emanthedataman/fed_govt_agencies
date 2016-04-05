@@ -26,17 +26,21 @@ class ScrapeAgencies:
         return soup
         
     #scrape site
-    def scrape_site(self, url):
+    def scrape_index(self, url):
         soup = self.convert_to_soup(url)
         
         #find the unordered list, within in that find all the a tags
         a_tags = soup.find('ul', {'class', 'one_column_bullet'}).findAll('a', {'class': 'url'})
         for a_tag in a_tags:
             agency_link = a_tag['href']
-            
- 
             agency_url = 'https://www.usa.gov' + agency_link
-            print agency_url
+            return agency_url
+            
+            
+    def scrape_agency(self, agency_url):
+        soup = self.convert_to_soup(agency_url)
+        div_agency = soup.find('div', {'class', 'col-md-9'})
+        print div_agency
             
             
         
@@ -58,7 +62,8 @@ if __name__ == "__main__":
     for letter in range(0, len(letters), 26):
         scrape = ScrapeAgencies()
         index_url = scrape.create_urls(letters[letter])
-        scrape.scrape_site(index_url)
+        agency_url = scrape.scrape_index(index_url)
+        scrape.scrape_agency(agency_url)
         
 
 
