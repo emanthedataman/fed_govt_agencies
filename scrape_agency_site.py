@@ -43,7 +43,7 @@ class ScrapeAgencies:
         p_tags = div_agency.findAll('p')
         
         for p_tag in p_tags:
-            print p_tag
+            print p_tag.text
             
             
         
