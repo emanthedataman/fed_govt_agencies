@@ -40,7 +40,10 @@ class ScrapeAgencies:
     def scrape_agency(self, agency_url):
         soup = self.convert_to_soup(agency_url)
         div_agency = soup.find('div', {'class', 'col-md-9'})
-        print div_agency
+        p_tags = div_agency.findAll('p')
+        
+        for p_tag in p_tags:
+            print p_tag
             
             
         
