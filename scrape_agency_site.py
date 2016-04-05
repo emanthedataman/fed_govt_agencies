@@ -32,8 +32,11 @@ class ScrapeAgencies:
         #find the unordered list, within in that find all the a tags
         a_tags = soup.find('ul', {'class', 'one_column_bullet'}).findAll('a', {'class': 'url'})
         for a_tag in a_tags:
-            agency_name = a_tag.text
             agency_link = a_tag['href']
+            
+ 
+            agency_url = 'https://www.usa.gov' + agency_link
+            print agency_url
             
             
         
