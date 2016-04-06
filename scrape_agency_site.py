@@ -18,6 +18,20 @@ class ScrapeAgencies:
         root_url = 'https://www.usa.gov/federal-agencies/%s' % (letter)
         return root_url
     
+    
+    def check_urls(self, url):
+        split_url = url.split('/')[-1]
+        
+        if split_url == 1:
+            file_path = '../cache/index_pages/'
+        elif split_url > 1:
+            file_path = '../cache/agency_pages/'
+            
+        return file_path
+    
+    
+    
+    
     #convert site to soup
     def convert_to_soup(self, url):
         response = requests.get(url)
@@ -25,6 +39,12 @@ class ScrapeAgencies:
         soup = BeautifulSoup(html, "html.parser")
         return soup
         
+    
+    
+    
+    
+    
+    
     #scrape site
     def scrape_index(self, url):
         soup = self.convert_to_soup(url)
@@ -65,8 +85,19 @@ if __name__ == "__main__":
     for letter in range(0, len(letters), 26):
         scrape = ScrapeAgencies()
         index_url = scrape.create_urls(letters[letter])
-        agency_url = scrape.scrape_index(index_url)
-        scrape.scrape_agency(agency_url)
+        scrape.check_urls(index_url)
+
+
+
+
+
+#         print index_url
+
+
+
+
+#         agency_url = scrape.scrape_index(index_url)
+#         scrape.scrape_agency(agency_url)
         
 
 
