@@ -18,33 +18,45 @@ class ScrapeAgencies:
         root_url = 'https://www.usa.gov/federal-agencies/%s' % (letter)
         return root_url
     
-    
     def check_urls(self, url):
+        '''checks url to get corresponding file path for cache folder'''
+    
         split_url = url.split('/')[-1]
         
         if split_url == 1:
-            file_path = '../cache/index_pages/'
+            file_path = '../cache/index_pages/' + split_url + '_index.html'
         elif split_url > 1:
-            file_path = '../cache/agency_pages/'
+            file_path = '../cache/agency_pages/' + split_url + '_agency.html'
             
         return file_path
     
-    
-    
-    
     #convert site to soup
-    def convert_to_soup(self, url):
-        response = requests.get(url)
-        html = response.text
-        soup = BeautifulSoup(html, "html.parser")
+    def convert_to_soup(self, url, file_path):
+
+        #first try to read the file
+        try:
+            print 'Reading file...' + file_path
+            read_cache = open(file_path, 'rb')
+            soup = BeautifulSoup(read_cache, "html.parser")
+            read_cache.close()
+
+        #if that doesnt work, write the file
+        except IOError:
+            print 'Writing file...' + file_path
+            response = requests.get(url)
+            html = response.text
+            write_cache = open(file_path, 'wb')
+            write_cache.write(html.encode('utf-8'))
+            soup = BeautifulSoup(html, "html.parser")
+            write_cache.close()
+            
         return soup
+            
         
-    
-    
-    
-    
-    
-    
+        
+
+
+
     #scrape site
     def scrape_index(self, url):
         soup = self.convert_to_soup(url)
@@ -85,7 +97,7 @@ if __name__ == "__main__":
     for letter in range(0, len(letters), 26):
         scrape = ScrapeAgencies()
         index_url = scrape.create_urls(letters[letter])
-        scrape.check_urls(index_url)
+        file_path = scrape.check_urls(index_url)
 
 
 
