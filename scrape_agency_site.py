@@ -98,6 +98,8 @@ if __name__ == "__main__":
         scrape = ScrapeAgencies()
         index_url = scrape.create_urls(letters[letter])
         file_path = scrape.check_urls(index_url)
+        soup = scrape.convert_to_soup(index_url, file_path)
+        scrape.scrape_agency(index_url)
 
 
 
