@@ -16,13 +16,6 @@ class ScrapeAgencies:
 
 
 
-        
-    
-        
-    
-
-
-
     #create urls to access all index pages    
     def create_urls(self, letter):
         urls_list = []
@@ -110,25 +103,26 @@ class ScrapeAgencies:
         
 if __name__ == "__main__":
     
-#FOR LOOP ITERATES THROUGH ONE LETTER
-    for letter in range(0, len(letters), 26):
-        scrape = ScrapeAgencies()
-        index_url = scrape.create_urls(letters[letter])
-        file_path = scrape.check_urls(index_url)
-        
-        scrape.convert_to_soup(index_url, file_path)
-        
-
-
-
-
-        
-
-
-
-
-# FOR LOOP BELOW ITERATES THROUGH ALL LETTERS IN THE ALPHABET
-#     for letter in letters:
+# #FOR LOOP ITERATES THROUGH ONE LETTER
+#     for letter in range(0, len(letters), 26):
 #         scrape = ScrapeAgencies()
-#         index_urls = scrape.create_urls(letter)
-#         print index_urls
+#         index_url = scrape.create_urls(letters[letter])
+#         file_path = scrape.check_urls(index_url)
+#         
+#         scrape.convert_to_soup(index_url, file_path)
+        
+
+
+
+#FOR LOOP BELOW ITERATES THROUGH ALL LETTERS IN THE ALPHABET
+    for letter in letters:
+
+        scrape = ScrapeAgencies()
+        index_urls = scrape.create_urls(letter)
+        file_path = scrape.check_urls(index_urls)
+        
+        scrape.convert_to_soup(index_urls, file_path)
+        
+        
+        
+        
