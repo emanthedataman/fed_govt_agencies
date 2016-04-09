@@ -1,8 +1,10 @@
 from string import ascii_lowercase as letters
 from bs4 import BeautifulSoup
 from urlparse import urlparse
+from time import sleep
 
 import requests
+import random
 
 class ScrapeAgencies:
 
@@ -11,6 +13,15 @@ class ScrapeAgencies:
         
         self.min_sleep_sec = 0.5
         self.max_sleep_sec = 2.5
+
+
+
+        
+    
+        
+    
+
+
 
     #create urls to access all index pages    
     def create_urls(self, letter):
@@ -31,12 +42,7 @@ class ScrapeAgencies:
             file_path = '../cache/agency_pages/' + cache_file_name + '.html'
             
         return file_path
-        
-        
-        
-        
-        
-        
+
     
     #convert site to soup
     def convert_to_soup(self, url, file_path):
@@ -51,7 +57,10 @@ class ScrapeAgencies:
         #if that doesnt work, write the file
         except IOError:
             print 'Writing file...' + file_path
+            
             response = requests.get(url)
+            sleep(random.uniform(self.min_sleep_sec, self.max_sleep_sec))
+            
             html = response.text
             write_cache = open(file_path, 'wb')
             write_cache.write(html.encode('utf-8'))
@@ -106,7 +115,8 @@ if __name__ == "__main__":
         scrape = ScrapeAgencies()
         index_url = scrape.create_urls(letters[letter])
         file_path = scrape.check_urls(index_url)
-        print file_path
+        
+        scrape.convert_to_soup(index_url, file_path)
         
 
 
