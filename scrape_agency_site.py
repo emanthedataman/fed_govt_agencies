@@ -21,21 +21,16 @@ class ScrapeAgencies:
     
     def check_urls(self, url):
         '''checks url to get corresponding file path for cache folder'''
-        parsed_url = urlparse(url)
-        print len(parsed_url.path)
         
+        parsed_url = urlparse(url)
+        cache_file_name = parsed_url.path[1:].replace('/', '_')
 
-
-
-
-
-
-
-#         if split_url == 1:
-#             file_path = '../cache/index_pages/' + split_url + '_index.html'
-#         elif split_url > 1:
-#             file_path = '../cache/agency_pages/' + split_url + '_agency.html'
+        if len(parsed_url.path) == 19:
+            file_path = '../cache/index_pages/' + cache_file_name + '.html'
+        elif len(parsed_url.path) > 19:       
+            file_path = '../cache/agency_pages/' + cache_file_name + '.html'
             
+        return file_path
         
         
         
@@ -111,7 +106,7 @@ if __name__ == "__main__":
         scrape = ScrapeAgencies()
         index_url = scrape.create_urls(letters[letter])
         file_path = scrape.check_urls(index_url)
-        
+        print file_path
         
 
 
