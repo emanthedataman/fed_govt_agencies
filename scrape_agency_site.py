@@ -1,5 +1,6 @@
 from string import ascii_lowercase as letters
 from bs4 import BeautifulSoup
+from urlparse import urlparse
 
 import requests
 
@@ -20,15 +21,27 @@ class ScrapeAgencies:
     
     def check_urls(self, url):
         '''checks url to get corresponding file path for cache folder'''
-    
-        split_url = url.split('/')[-1]
+        parsed_url = urlparse(url)
+        print len(parsed_url.path)
         
-        if split_url == 1:
-            file_path = '../cache/index_pages/' + split_url + '_index.html'
-        elif split_url > 1:
-            file_path = '../cache/agency_pages/' + split_url + '_agency.html'
+
+
+
+
+
+
+
+#         if split_url == 1:
+#             file_path = '../cache/index_pages/' + split_url + '_index.html'
+#         elif split_url > 1:
+#             file_path = '../cache/agency_pages/' + split_url + '_agency.html'
             
-        return file_path
+        
+        
+        
+        
+        
+        
     
     #convert site to soup
     def convert_to_soup(self, url, file_path):
@@ -99,7 +112,7 @@ if __name__ == "__main__":
         index_url = scrape.create_urls(letters[letter])
         file_path = scrape.check_urls(index_url)
         
-        print file_path
+        
 
 
 
