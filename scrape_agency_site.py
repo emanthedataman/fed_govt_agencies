@@ -80,8 +80,7 @@ class ScrapeAgencies:
             
             
             
-    def scrape_agency(self, agency_url):
-        soup = self.convert_to_soup(agency_url)
+    def scrape_agency(self, soup):
         div_agency = soup.find('div', {'class', 'col-md-9'})
         p_tags = div_agency.findAll('p')
         
@@ -130,6 +129,7 @@ if __name__ == "__main__":
     for index_link in index_links:
         file_path = scrape.check_urls(index_link)
         soup = scrape.convert_to_soup(index_link, file_path)
+        scrape.scrape_agency(soup)
         
         
         
