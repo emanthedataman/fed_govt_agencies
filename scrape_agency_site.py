@@ -68,15 +68,22 @@ class ScrapeAgencies:
 
 
     #scrape site
-    def scrape_index(self, url):
-        soup = self.convert_to_soup(url)
+    def scrape_index(self, soup):
         
-        #find the unordered list, within in that find all the a tags
-        a_tags = soup.find('ul', {'class', 'one_column_bullet'}).findAll('a', {'class': 'url'})
-        for a_tag in a_tags:
-            agency_link = a_tag['href']
-            agency_url = 'https://www.usa.gov' + agency_link
-            return agency_url
+        
+        try:        
+            #find the unordered list, within in that find all the a tags
+            a_tags = soup.find('ul', {'class', 'one_column_bullet'}).findAll('a', {'class': 'url'})
+            
+            for a_tag in a_tags:
+                agency_link = a_tag['href']
+                agency_url = 'https://www.usa.gov' + agency_link
+                print agency_url
+
+        except AttributeError:
+            print 'No One Column Bullet'
+            
+            
             
             
     def scrape_agency(self, agency_url):
@@ -121,7 +128,8 @@ if __name__ == "__main__":
         index_urls = scrape.create_urls(letter)
         file_path = scrape.check_urls(index_urls)
         
-        scrape.convert_to_soup(index_urls, file_path)
+        soup = scrape.convert_to_soup(index_urls, file_path)
+        scrape.scrape_index(soup)
         
         
         
