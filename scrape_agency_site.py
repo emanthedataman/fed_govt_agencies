@@ -26,6 +26,7 @@ class ScrapeAgencies:
     def check_urls(self, url):
         '''checks url to get corresponding file path for cache folder'''
         
+        
         parsed_url = urlparse(url)
         cache_file_name = parsed_url.path[1:].replace('/', '_')
 
@@ -74,7 +75,7 @@ class ScrapeAgencies:
                 return agency_url
 
         except AttributeError:
-            pass
+            return None
             
             
             
@@ -123,7 +124,8 @@ if __name__ == "__main__":
         
         soup = scrape.convert_to_soup(index_urls, file_path)
         links = scrape.scrape_index(soup)
-        index_links.append(links)
+        if links:    
+            index_links.append(links)
         
     for index_link in index_links:
         file_path = scrape.check_urls(index_link)
