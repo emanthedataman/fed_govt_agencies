@@ -82,11 +82,9 @@ class ScrapeAgencies:
             
     def scrape_agency(self, soup):
         div_agency = soup.find('div', {'class', 'col-md-9'})
-        p_tags = div_agency.findAll('p')
         
-        for p_tag in p_tags:
-            print p_tag.text
-            
+        
+        print div_agency.find('h1').text
             
         
 
